@@ -34,7 +34,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 
 # 方案二
 
-上面使用 activey 做启动屏的好处是，可以进行编程，实现较为复杂的甚至是带动画的界面，但正如上述，绘制 activey 本身也是需要时间的，所以点击 APP 图片展开之后的第一眼是一个纯色背景，之后才会加载上启动屏，有延迟感。如果启动屏图案为彩色，无法通过配置完美解决视觉上的闪屏问题。
+上面使用 activey 做启动屏的好处是，可以进行编程，实现较为复杂的甚至是带动画的界面，但正如上述，绘制 activey 本身也是需要时间的，所以点击 APP 图标后的第一眼是一个纯色背景，之后才会加载上启动屏，有延迟感。如果启动屏图案为彩色，无法通过配置完美解决视觉上的闪屏问题。
 
 还有一种方案，既然 app 启动瞬间显示的是启动背景，那么直接美化启动背景，当做欢迎屏不就可以了嘛，这样就完全不存在启动时的等待时间，点开瞬间即显示。同样是修改 `android/app/src/main/res/values/styles.xml`，改为下面这样
 
@@ -43,12 +43,12 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         ...
         <!--设置启动背景为一个资源文件-->
-        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 </resources>
 ```
 
-创建启动背景资源文件 `@drawable/splash`，保存路径为 `android/app/src/main/res/drawable/splash.xml`
+创建启动背景资源文件 `@drawable/splash`，保存路径为 `android/app/src/main/res/drawable/splash_screen.xml`
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -155,7 +155,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         ...
-        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 </resources>
 ```
@@ -166,7 +166,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         ...
-        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 </resources>
@@ -178,7 +178,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         ...
-        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 </resources>
@@ -189,7 +189,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         ...
-        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
@@ -199,10 +199,10 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 # 测试方案一
 
 上面的配置同时适用于方案一二，使用方案一测试一下，即使用 activey 作为启动页。修改上面配置中的资源文件
- `<item name="android:windowBackground">@drawable/splash</item>` 为颜色值
+ `<item name="android:windowBackground">@drawable/splash_screen</item>` 为颜色值
  `<item name="android:windowBackground">@android:color/darker_gray</item>`
 
-新增一个 `layout/splash.xml`，代码如下
+新增一个 `layout/splash_layout.xml`，代码如下
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -232,7 +232,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
     super.onCreate(savedInstanceState);
     // 这里仅为了测试显示效果，直接加载 layout/splash
     // 若实际使用, 应该在这之前, 在 ContentVIew 上层显示 layout/splash
-    setContentView(R.layout.splash);
+    setContentView(R.layout.splash_layout);
   }
 ...
 ```
@@ -245,7 +245,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 
 # 测试方案二
 
-取消上述 `android:windowBackground` 属性的修改，仍使用启动背景作为启动屏方案，新增启动背景 `/drawable/splash.xml`，代码如下：
+取消上述 `android:windowBackground` 属性的修改，仍使用启动背景作为启动屏方案，新增启动背景 `/drawable/splash_screen.xml`，代码如下：
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -289,7 +289,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 1. 仅有一张启动 LOGO 图，放在屏幕底部。
 2. 有两张启动图，上面一张较大的，底部一张稍小的。
 
-二者与一张图正居中的主要区别在于会有图片放在屏幕底部，底部的图就不那么简单了，有兼容性问题，这里选用上下启动图进行测试以作说明。仍然按照上述思路，先使用 activey 作为启动页，经测试，这种方案没有问题，无需多说，`layout/splash.xml` 代码和效果图如下：
+二者与一张居中图的主要区别在于会有图片放在屏幕底部，底部的图就不那么简单了，有兼容性问题，这里选用上下启动图进行测试以作说明。仍然按照上述思路，先使用 activey 作为启动页，经测试，这种方案没有问题，无需多说，`layout/splash_layout.xml` 代码和效果图如下：
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -328,7 +328,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 ```
 ![上下图均在预期的红线之间](imgs/android_3.png)
 
-再试一下使用启动背景的方案，`/drawable/splash.xml` 代码和效果图如下：
+再试一下使用启动背景的方案，`/drawable/splash_screen.xml` 代码和效果图如下：
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -351,9 +351,9 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 </layer-list>
 ```
 
-![使用启动背景作为方案的效果图](imgs/android_4.png))
+![使用启动背景作为方案的效果图](imgs/android_4.png)
 
-可见效果图是符合逻辑的，但却不符合期望效果。在 Android4.4 以上的非全面屏手机上，下图会被导航栏覆盖，如果对下图显示的位置不那么在意，可以给 `/drawable/splash.xml` 下图所在的 `item` 修改为 `android:bottom="48dp"`，因为通常情况下，导航栏的高度为 `48dp`，这样可以让下图也能显示出来，但这也会带来两个问题：
+可见效果图是符合逻辑的，但却不符合期望效果。在 Android4.4 以上的非全面屏手机上，下图会被导航栏覆盖，如果对下图显示的位置不那么在意，可以给 `/drawable/splash_screen.xml` 下图所在的 `item` 修改为 `android:bottom="48dp"`，因为通常情况下，导航栏的高度为 `48dp`，这样可以让下图也能显示出来，但这也会带来两个问题：
 
 1.  Android4.4 以下和全面屏，下图也会向上移动 48dp，设计感可能会不如预期。
 2. 并非所有手机的导航栏高度都一定为 48dp，为了保险起见，可能还需要加大该数值。
@@ -365,7 +365,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         ...
         <!--状态栏/导航栏都设置为透明-->
-        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
@@ -375,7 +375,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         ...
         <!--状态栏/导航栏不属于背景区域，由系统接管-->
-        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="android:windowDrawsSystemBarBackgrounds">false</item>
     </style>
 </resources>
@@ -385,7 +385,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         ...
         <!--导航栏不属于背景区域，由系统接管；状态栏不显示-->
-        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="android:windowDrawsSystemBarBackgrounds">false</item>
         <item name="android:windowFullscreen">true</item>
     </style>
@@ -398,7 +398,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 - 第三种是大部分APP选择的方式，可以兼顾全面屏和有导航栏的，缺点是在冷启动瞬间不显示状态栏，在 APP 加载成功后需通过代码动态显示状态栏。因为状态栏被隐藏，这样也无需设置 `values-v23` 了。
 - 上述也不是绝对的，比如启动背景为一张全屏的大背景图，此时使用第一种方案可能会更友好一点。
 
-![三种不同处理方式的效果图](imgs/android_5.png))
+![三种不同处理方式的效果图](imgs/android_5.png)
 
 细心的朋友应该看出来上述截图没有使用刘海屏手机，这是因为第三种方案对于刘海屏不友好，由于 `android:windowDrawsSystemBarBackgrounds` 的配置，状态栏会变成一个大黑边（参见上面的启动配置介绍），需要新增一个 `/values-v27/styles.xml` (Android 8.1 及以上) 用以适配全面屏，配置如下
 ```
@@ -406,7 +406,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         ...
         <!--导航栏不属于背景区域，由系统接管；状态栏不显示-->
-        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="android:windowDrawsSystemBarBackgrounds">false</item>
         <item name="android:windowFullscreen">true</item>
         <!--在 v21 基础上新增刘海设置-->
