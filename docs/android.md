@@ -431,6 +431,6 @@ StatusBar.setBackgroundColor('#000');//transparent
 
 继续阅读：
 
-[iOS 启动屏](https://www.jianshu.com/p/bc5b9421970d)
+[iOS 启动屏](ios.md)
 
-[React Native 启动屏](https://www.jianshu.com/p/819237dde633)
+[React Native 启动屏](react.md)

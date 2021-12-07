@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3" userLabel="launchView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_top" translatesAutoresizingMaskIntoConstraints="NO" id="Q6f-Wv-Oru" userLabel="Splash Top">
+                                <rect key="frame" x="0.0" y="-233.5" width="375" height="900.5"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_bottom" translatesAutoresizingMaskIntoConstraints="NO" id="A1J-Lq-gHS" userLabel="Splash Bottom">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="642"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Q6f-Wv-Oru" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="55i-lI-CTv"/>
+                            <constraint firstItem="Q6f-Wv-Oru" firstAttribute="centerX" secondItem="Bcu-3y-fUS" secondAttribute="centerX" id="GLb-sC-usc"/>
+                            <constraint firstItem="A1J-Lq-gHS" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="JWp-Y1-CYt"/>
+                            <constraint firstItem="A1J-Lq-gHS" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" id="Rv3-Dz-JNj"/>
+                            <constraint firstItem="A1J-Lq-gHS" firstAttribute="bottom" secondItem="Bcu-3y-fUS" secondAttribute="bottom" constant="-25" id="WXr-6U-tRo"/>
+                            <constraint firstItem="Q6f-Wv-Oru" firstAttribute="centerY" secondItem="Bcu-3y-fUS" secondAttribute="centerY" multiplier="0.65" id="fhY-LF-upc"/>
+                            <constraint firstItem="Q6f-Wv-Oru" firstAttribute="bottom" secondItem="Bcu-3y-fUS" secondAttribute="bottom" id="soL-69-ADx"/>
+                            <constraint firstItem="A1J-Lq-gHS" firstAttribute="centerX" secondItem="Bcu-3y-fUS" secondAttribute="centerX" id="xbr-6A-Put"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="50.724637681159422" y="374.33035714285711"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="splash_bottom"/>
+        <image name="splash_top"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
