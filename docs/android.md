@@ -48,7 +48,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 </resources>
 ```
 
-创建启动背景资源文件 `@drawable/splash`，保存路径为 `android/app/src/main/res/drawable/splash_screen.xml`
+创建启动背景资源文件 `@drawable/splash_screen`，保存路径为 `android/app/src/main/res/drawable/splash_screen.xml`
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -198,7 +198,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 
 # 测试方案一
 
-上面的配置同时适用于方案一二，使用方案一测试一下，即使用 activey 作为启动页。修改上面配置中的资源文件
+上面的配置同时适用于方案一二，先使用方案一测试一下，即使用 activey 作为启动页。修改上面配置中的资源文件
  `<item name="android:windowBackground">@drawable/splash_screen</item>` 为颜色值
  `<item name="android:windowBackground">@android:color/darker_gray</item>`
 
@@ -415,7 +415,9 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 </resources>
 ```
 
-![添加刘海配置前后的截图](imgs/android_6.png)
+适配前后的效果图
+
+![适配前后的效果图](imgs/android_6.png)
 
 上述应该算作较为完美的处理启动屏的方案了，如果希望上图位置向上偏移，可参考上面只有一张居中图的说明。最后剩下一个小问题，隐藏的状态栏应该在 App 主界面加载完毕后显示出来才好，对于 RN 可以使用下面的方法，原生开发可参考 RN 的 [实现](https://github.com/facebook/react-native/blob/main/ReactAndroid/src/main/java/com/facebook/react/modules/statusbar/StatusBarModule.java)
 
