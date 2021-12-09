@@ -1,0 +1,20 @@
+{
+  "name": "react-native-splashbg",
+  "version": "0.0.3",
+  "description": "splash screen for rn",
+  "main": "index.js",
+  "bin": {
+    "init": "./cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malacca/react-native-splashbg.git",
+    "baseUrl": "https://github.com/malacca/react-native-splashbg"
+  },
+  "keywords": [
+    "react-native",
+    "splash"
+  ],
+  "author": "malacca",
+  "license": "MIT"
+}
