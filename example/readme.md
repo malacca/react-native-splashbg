@@ -1,3 +1,5 @@
 # 样例效果图
 
-![渐进式加载](example.png)
+|  theme   |   效果图    |
+|  ----    |   ----     |
+|  weibo   | ![](_screenshot_/weibo.png) |
