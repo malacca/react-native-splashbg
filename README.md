@@ -7,13 +7,13 @@
 
 # 配置
 
-在配置前，推荐先阅读 [启动屏原理及实现探究](docs/readme.md)，以了解 `react-native-splashbg` 的运行原理，之后可参考 [example](example/readme.md) 文件夹下样例配置 Android / iOS 启动屏文件。
+在配置前，推荐先阅读 [启动屏原理及实现探究](docs)，以了解 `react-native-splashbg` 的运行原理，之后可参考 [example](example) 文件夹下样例配置 Android / iOS 启动屏文件。
 
 如果是全新的项目，或从未修改过相关的配置文件，还可利用 `react-native-splashbg` 提供的命令行工具进行快速配置，只需在项目根目录执行:
 
 ### `npx splash [theme]`
 
-其中 `theme` 是 [example](example/readme.md) 目录下的文件夹名称，该命令会自动下载配置文件并保存到对应路径，之后只需修改 `android/app/src/main/res/drawable-xxxhdpi` 和 `ios/project/Images.xcassets` 目录下的图片即可。如果多次执行该命令，并下载不同的 `theme`，可能会产生多余的图片资源，还请注意手动删除，不删除不会影响程序运行，但会增大安装包的体积。
+其中 `theme` 是 [example](example) 目录下的文件夹名称，该命令会自动下载配置文件并保存到对应路径，之后只需修改 `android/app/src/main/res/drawable-xxxhdpi` 和 `ios/project/Images.xcassets` 目录下的图片即可。如果多次执行该命令，并下载不同的 `theme`，可能会产生多余的图片资源，还请注意手动删除，不删除不会影响程序运行，但会增大安装包的体积。
 
 
 # 使用
