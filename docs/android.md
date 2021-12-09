@@ -68,7 +68,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 
 1. 劣势：这是一个类似于 Canvas 绘图逻辑的资源文件，支持的 [绘图方式](https://developer.android.com/guide/topics/resources/drawable-resource) 较为有限，无法实现较为复杂的启动屏，通常就是直接插入图片。
 
-2. 上例中第一个 `item` 用来设置背景颜色，因为 android 有众多分辨率，若启动背景图较小，无法覆盖满整个屏幕，可设计启动图片的边缘为纯色，和所设置背景颜色自动衔接即可。
+2. 上例中第一个 `item` 用来设置背景颜色，因为 android 有众多分辨率，若启动背景图较小，无法覆盖满整个屏幕，可设计启动图片的边缘为纯色，和所设置背景颜色自动衔接即可。当然，启动图直接使用透明 PNG 格式也可以。
 
 3. `@drawable/splash_img` 指定启动背景图，参考 [android不同分辨率适配](https://www.jianshu.com/p/4d49f0cdbfcd)，`drawable` 文件可以创建一个，也可以创建多个，当屏幕分辨率对上号了，优先使用最匹配的 `drawable`，若匹配不上，则会自动选用最接近的一个，并按照比例进行缩放；
    
@@ -262,7 +262,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 ```
  此时效果图如下，启动背景的显示区域在红线之间，在不同版本的或不同手机上显示效果不同。同理的，如希望图片在垂直方向上稍微偏上，也可使用下面两种方法
 - 修改上面 `bitmap` 所在的 `item` 属性，比如将  `android:bottom="0dp"` 修改为 `android:bottom="30dp"`
-- 修改 `bitmap` 垂直位置为 `android:gravity="top|center_horizontal"`，`item` 偏移改为 `android:top="136dp"`
+- 修改 `bitmap` 垂直位置为 `android:gravity="top|center_horizontal"`，`item` 设置偏移(如 `android:top="136dp"`)
 
 ![方案二效果图](imgs/android_2.png)
 
@@ -358,7 +358,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 1.  Android4.4 以下和全面屏，下图也会向上移动 48dp，设计感可能会不如预期。
 2. 并非所有手机的导航栏高度都一定为 48dp，为了保险起见，可能还需要加大该数值。
 
-若无法接受这种方案，还有一种解决方案是修改 `styles.xml`。因为只有在 Android4.4 以上才有此问题，所以保持 `/values/styles.xml` 和 `/values-v19/styles.xml` 不变，只需修改 `/values-v21/styles.xml` 即可（如果设置了 `values-v23` 也要同时修改），可以从上面介绍的启动配置中选择的合适的进行设置，有三种常见的方案
+若无法接受这种方案，还有一种解决方案是修改 `styles.xml`。因为只有在 Android4.4 以上才有此问题，所以保持 `/values/styles.xml` 和 `/values-v19/styles.xml` 不变，只需修改 `/values-v21/styles.xml` 即可（如果设置了 `values-v23` 也要同时修改），可以从上面介绍的启动配置中选择的合适的属性进行配置，有三种常见的方案
 
 ```
 <resources>
@@ -370,6 +370,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 </resources>
+
 
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -393,14 +394,14 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 ```
 
 三种配置的效果图如下：
-- 第一种方案对全面屏手机友好（本来就没有导航栏，还可以显示状态栏），但对于有导航栏的显示效果就会如下图所示；
-- 第二种头部的状态栏无法自定义设置，总是为黑边，通常不使用这一种，不好看；
-- 第三种是大部分APP选择的方式，可以兼顾全面屏和有导航栏的，缺点是在冷启动瞬间不显示状态栏，在 APP 加载成功后需通过代码动态显示状态栏。因为状态栏被隐藏，这样也无需设置 `values-v23` 了。
+- 第一种方案对本来就没有导航栏全面屏手机友好，还可以显示状态栏，但对于有导航栏的显示效果就会如下图所示；
+- 第二种头部的状态栏无法自定义设置，总是为黑底白字，通常不使用这一种，不好看；
+- 第三种是大部分APP选择的方式，可以兼顾全面屏和有导航栏的，缺点是在冷启动瞬间不显示状态栏，在 APP 加载成功后需通过代码动态显示状态栏。且因为状态栏被隐藏，也无需设置 `values-v23` 了，适合各种色调的图片。
 - 上述也不是绝对的，比如启动背景为一张全屏的大背景图，此时使用第一种方案可能会更友好一点。
 
 ![三种不同处理方式的效果图](imgs/android_5.png)
 
-细心的朋友应该看出来上述截图没有使用刘海屏手机，这是因为第三种方案对于刘海屏不友好，由于 `android:windowDrawsSystemBarBackgrounds` 的配置，状态栏会变成一个大黑边（参见上面的启动配置介绍），需要新增一个 `/values-v27/styles.xml` (Android 8.1 及以上) 用以适配全面屏，配置如下
+细心的朋友应该看出来上述截图没有使用刘海屏手机，这是因为第三种方案对于刘海屏不友好，由于 `android:windowDrawsSystemBarBackgrounds` 的配置，状态栏会变成一个大黑边（参见上面的启动配置介绍），还需要新增一个 `/values-v27/styles.xml` (Android 8.1 及以上) 用以适配全面屏，配置如下
 ```
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">

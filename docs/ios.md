@@ -1,6 +1,6 @@
 # 前言
 
-新版 iOS 使用 `.storyboard` 文件作为启动屏文件，RN 自带了一个 [启动屏](https://github.com/facebook/react-native/blob/main/template/ios/HelloWorld/LaunchScreen.storyboard)，在生成项目的路径为 `ios/[project]/LaunchScreen.storyboard`，如果可以接受纯文字格式的启动屏，打开这个文件修改文字即可。
+新版 iOS 使用 `.storyboard` 文件作为启动屏文件，RN 自带了一个 [启动屏](https://github.com/facebook/react-native/blob/main/template/ios/HelloWorld/LaunchScreen.storyboard)，在项目中的路径为 `ios/[project]/LaunchScreen.storyboard`，如果可以接受纯文字格式的启动屏，打开这个文件修改文字即可。
 
 若需要自定义，可通过 xcode 进行可视化编辑，如下图
 
@@ -49,7 +49,7 @@ iOS 与 Android 类似，也存在不同的分辨率和 DPI ，为了维护方�
 
 一般情况下，若 JS 线程在启动时没有任何异步任务，直接在 `render` 返回界面，倒也问题不大，几乎不会出现白屏的情况，但如果 JS 在启动时执行一些异步请求，之后才 `render` 界面，那么这个白屏就很难受了。
 
-这不同于 Android 使用 window 背景图的方式：背景图不会消失，直到主界面渲染完成后自动覆盖，视觉上是连贯的。所以对于 RN 而言，直接使用 `.storyboard` 作为启动屏并不完美。
+这不同于 Android 使用 window 背景图的方式：背景图不会消失，直到主界面渲染完成后自动覆盖，视觉上是连贯的。所以对于 RN 而言，直接使用 `.storyboard` 作为启动屏并不完美，启动时无法在 JS 中处理异步任务。
 
 [react-native-splash-screen](https://github.com/crazycodeboy/react-native-splash-screen) 的方案是，使用 `NSRunLoop` 方法阻塞主线程，等待 JS 线程加载完毕的通知，待收到通知后，跳出阻塞，移除启动屏，显示主界面。
 
@@ -77,15 +77,29 @@ iOS 与 Android 类似，也存在不同的分辨率和 DPI ，为了维护方�
 
 # 插件开发
 
-无论是 `react-native-splash-screen` 还是 `react-native-bootsplash`，都需要修改 `AppDelegate.m` 中的代码，有没有办法开发一个组件避免这一步，让组件更加绿色纯净。答案是行，但又不完全行，因为组件在  `didFinishLaunchingWithOptions` 之后才会加载，而此时，启动屏刚刚被移除。
+无论是 `react-native-splash-screen` 还是 `react-native-bootsplash`，都需要修改 `AppDelegate.m` 中的代码，有没有办法开发一个组件避免这一步，让组件更加绿色纯净，安装卸载组件都无需对项目做什么修改。参考 [RN与iOS原生通信原理](https://blog.gaogangsever.cn/react/ReactNative%E4%B8%8EiOS%E5%8E%9F%E7%94%9F%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90-%E5%88%9D%E5%A7%8B%E5%8C%96.html)，根据加载流程可以发现，如果想在 `didFinishLaunchingWithOptions` 返回结果前加载组件，需要实现自定义的 `BridgeModule`，这样可以 [注入依赖](https://reactnative.dev/docs/native-modules-ios#dependency-injection)，但这种方法也需要修改 `AppDelegate.m`，并且实现起来还比较麻烦，pass 掉。
 
-若此时在组件初始化的 `init` 方法中使用启动屏创建页面并插入到主界面下面，一般情况下，因为运行足够快，视觉上没有闪动，就好像启动屏一直在显示一样，所以说是可行的。
+既然 RN 没有预留相关接口，试试 iOS 的通知系统，看看有没有可以利用的回调接口，可以用下面的方法查看启动过程中的所有通知：
 
-但又不完全行，因为这种方式总归是不太保险，使用启动屏创建的页面是在启动屏移除后插入的，二者之间的衔接时间会成为一个隐患，若衔接时间稍微长一点，那么这个时间间隔内会显示为白屏，安全的方式是在启动屏未移除前就插入创建的启动屏页面。
+```
+NSNotificationCenter *notifyCenter = [NSNotificationCenter defaultCenter];
+[notifyCenter addObserverForName:nil
+                            object:nil
+                            queue:nil
+                        usingBlock:^(NSNotification *notification){
+    NSLog(@"Notification found with:"
+            "\r\n     name:     %@"
+            "\r\n     object:   %@"
+            "\r\n     userInfo: %@",
+            [notification name],
+            [notification object],
+            [notification userInfo]);
+}];
+```
 
-为了实现这个目的，有两种方法：第一种方法是实现自定义的 `BridgeModule`，这样可以 [注入依赖](https://reactnative.dev/docs/native-modules-ios#dependency-injection)，让 module 在 `didFinishLaunchingWithOptions` 结束之前加载，可参考 [RN与iOS原生通信原理](https://blog.gaogangsever.cn/react/ReactNative%E4%B8%8EiOS%E5%8E%9F%E7%94%9F%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90-%E5%88%9D%E5%A7%8B%E5%8C%96.html)，但这种方法也需要修改 `AppDelegate.m`，并且实现起来还比较麻烦，pass 掉。
+最终发现在 `didFinishLaunchingWithOptions` 返回结果前，产生了一个名为 [`UIWindowDidBecomeVisibleNotification`](https://developer.apple.com/documentation/uikit/uiwindowdidbecomevisiblenotification) 的通知，查看文档发现这个有用，这了就不展开逻辑了，仅提供一个开发组件时的思路。
 
-最简单的还是实现一个静态函数用于使用启动屏创建页面并插入，然后手动在 `didFinishLaunchingWithOptions` 函数内调用，所以 `react-native-splashbg` 选择使用这种方式。
+剩下的就是一些细节处理了，最终可通过这个思路实现一个绿色启动屏组件。
 
 继续阅读：
 
