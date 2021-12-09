@@ -1,10 +1,10 @@
 {
   "name": "react-native-splashbg",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "splash screen for rn",
   "main": "index.js",
   "bin": {
-    "init": "./cli.js"
+    "splash": "./cli.js"
   },
   "repository": {
     "type": "git",
