@@ -283,6 +283,43 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 
 通常情况下，无需考虑后三个了，这么老的手机基本被淘汰了（可 [参考](https://tongji.baidu.com/research/app)），最终可得出大概结论，在 `xxxhdpi` 密度下的开屏 LOGO 如果为 `384px`，那么宽度占比约为 `30%`，可根据设计需要依此为依据进行调整，比如取 `512px`，那么宽度占比约为 `512/384 * 30% = 40%`
 
+
+# 启动图背景
+
+上面的 `/drawable/splash_screen.xml` 直接设置了背景颜色，但在 Android 10 以后系统支持 dark mode，如果希望启动图也对此进行适配，方法也比较简单，首先在 `/values/styles.xml` 新增一个颜色值
+
+```
+<resources>
+    <color name="splash_background">#ffffffff</color>
+    ...
+</resources>
+```
+
+然后，新建一个 `/values-night/styles.xml`，定义一个同名颜色值
+
+```
+<resources>
+    <color name="splash_background">#ff000000</color>
+</resources>
+```
+
+接着，修改 `/drawable/splash_screen.xml` 中的背景 `item`
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<item><color android:color="#aaa"/></item> 修改为下-->
+
+    <item android:drawable="@color/splash_background"/>
+    
+    ....
+</layer-list>
+```
+
+最后，如果保存在 `drawable-xxxhdpi` 下的启动图片可以搭配深浅两种背景的话，这就可以了。否则，可以新建一个 `drawable-night-xxxhdpi` 资源目录，添加一张适配深色背景的 `splash_img.png`
+
+
 # 上下图启动屏
 
 上述启动图较为简单，除上述启动图之外，还有两种较为常见的启动图形式：

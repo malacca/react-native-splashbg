@@ -1,10 +1,11 @@
 <resources>
-    <color name="splash_background">#ffffffff</color>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
 </resources>

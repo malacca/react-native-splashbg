@@ -13,7 +13,9 @@
 
 `npx splash [theme]`
 
-其中 `[theme]` 修改为 [example](example) 目录下的文件夹名称，该命令会自动下载配置文件并保存到对应路径，之后只需修改 `android/app/src/main/res/drawable-xxxhdpi` 和 `ios/project/Images.xcassets` 目录下的相应图片即可。如果多次执行该命令，并下载了不同的 `theme`，可能会产生多余的图片资源，还请注意手动删除，不删除不会影响程序运行，但会增大安装包的体积。
+其中 `[theme]` 修改为 [example](example) 目录下的文件夹名称，该命令会自动下载配置文件并保存到对应路径，之后只需修改 `android/app/src/main/res/drawable-xxxhdpi` 和 `ios/project/Images.xcassets` 目录下的相应图片即可，图片尺寸无需保持完全一致。
+
+如果多次执行该命令，并下载了不同的 `theme`，可能会产生多余的图片资源，还请注意手动删除，不删除不会影响程序运行，但会增大安装包的体积。
 
 
 # 使用

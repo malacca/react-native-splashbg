@@ -17,19 +17,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_top" translatesAutoresizingMaskIntoConstraints="NO" id="Q6f-Wv-Oru" userLabel="Splash Top"/>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_bottom" translatesAutoresizingMaskIntoConstraints="NO" id="A1J-Lq-gHS" userLabel="Splash Bottom"/>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Q6f-Wv-Oru" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="55i-lI-CTv"/>
-                            <constraint firstItem="Q6f-Wv-Oru" firstAttribute="centerX" secondItem="Bcu-3y-fUS" secondAttribute="centerX" id="GLb-sC-usc"/>
                             <constraint firstItem="A1J-Lq-gHS" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="JWp-Y1-CYt"/>
                             <constraint firstItem="A1J-Lq-gHS" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" id="Rv3-Dz-JNj"/>
                             <constraint firstItem="A1J-Lq-gHS" firstAttribute="bottom" secondItem="Bcu-3y-fUS" secondAttribute="bottom" constant="-20" id="WXr-6U-tRo"/>
-                            <constraint firstItem="Q6f-Wv-Oru" firstAttribute="centerY" secondItem="Bcu-3y-fUS" secondAttribute="centerY" multiplier="0.7" constant="1" id="fhY-LF-upc"/>
-                            <constraint firstItem="Q6f-Wv-Oru" firstAttribute="bottom" secondItem="Bcu-3y-fUS" secondAttribute="bottom" id="soL-69-ADx"/>
                             <constraint firstItem="A1J-Lq-gHS" firstAttribute="centerX" secondItem="Bcu-3y-fUS" secondAttribute="centerX" id="xbr-6A-Put"/>
                         </constraints>
                     </view>
@@ -40,7 +35,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="splash_top"/>
         <image name="splash_bottom"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

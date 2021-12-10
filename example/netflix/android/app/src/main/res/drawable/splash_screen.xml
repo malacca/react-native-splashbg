@@ -8,11 +8,4 @@
             android:gravity="center"
             android:src="@drawable/splash_top" />
     </item>
-    <item android:bottom="20dp">
-        <bitmap
-            android:antialias="true"
-            android:filter="true"
-            android:gravity="bottom|center_horizontal"
-            android:src="@drawable/splash_bottom" />
-    </item>
 </layer-list>
