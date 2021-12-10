@@ -317,7 +317,7 @@ android 启动时会显示一个 白色 或 黑色 的启动背景，在 app 界
 </layer-list>
 ```
 
-最后，如果保存在 `drawable-xxxhdpi` 下的启动图片可以搭配深浅两种背景的话，这就可以了。否则，可以新建一个 `drawable-night-xxxhdpi` 资源目录，添加一张适配深色背景的 `splash_img.png`
+最后，如果用于启动屏的图片 `drawable-xxxhdpi/splash_img.png` 可以搭配深浅两种背景的话，这就可以了。否则，可以新建一个 `drawable-night-xxxhdpi` 资源目录，添加一张适配深色背景的 `splash_img.png`
 
 
 # 上下图启动屏
