@@ -1,6 +1,6 @@
 {
   "name": "react-native-splashbg",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "splash screen for rn",
   "main": "index.js",
   "bin": {
